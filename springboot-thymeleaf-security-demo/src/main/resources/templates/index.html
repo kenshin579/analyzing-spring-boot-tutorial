@@ -15,6 +15,14 @@
 	         <p><a th:href="@{/home}">User Home</a></p>
 		     <p><a th:href="@{/admin/home}">Admin Home</a></p>
 		     <p sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></p>
+
+			<h3>Admin All</h3>
+			<div class="col-md-12">
+				<div class="col-md-4">
+					<a href="/" role="button" class="btn btn-secondary">취소</a>
+					<button type="button" class="btn btn-primary" id="btn-all">조회</button>
+				</div>
+			</div>
     	</div>
     	
     </body>
