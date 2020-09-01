@@ -1,4 +1,21 @@
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+};
+
 var main = {
+
     init : function () {
         var _this = this;
         $('#btn-save').on('click', function () {
@@ -13,6 +30,8 @@ var main = {
         var data = {
             name: $('#name').val()
         };
+        var token = getCookie('XSRF-TOKEN');
+        console.log('token', token);
 
         console.log('data', JSON.stringify(data));
 
@@ -20,6 +39,9 @@ var main = {
             type: 'POST',
             url: '/admin/new',
             dataType: 'json',
+            beforeSend: function (request) {
+                request.setRequestHeader("X-XSRF-TOKEN", token);
+            },
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
